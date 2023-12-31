@@ -1,19 +1,21 @@
 const path = require('path')
 
 const express = require('express');
-
+const bodyparser = require("body-parser");
 const app = express();
 
-const adminRouts = require("./routes/admin");
-
+const addproductRouts = require("./routes/add-product");
 const shopRouts = require("./routes/shop")
-
-const bodyparser = require("body-parser");
+const contactRouts = require('./routes/Contact');
+const successRoutes = require('./routes/success');
 
 app.use(bodyparser.urlencoded({extended:false}));
+app.use(express.static(path.join(__dirname,'public')))
 
-app.use('/admin',adminRouts);
+app.use('/admin',addproductRouts);
 app.use(shopRouts);
+app.use(contactRouts);
+app.use(successRoutes)
 
 
 app.use((req,res,next) => {
